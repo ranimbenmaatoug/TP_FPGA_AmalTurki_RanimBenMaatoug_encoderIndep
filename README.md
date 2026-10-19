@@ -1,6 +1,6 @@
 # TP_FPGA_AmalTurki_RanimBenMaatoug_encoderIndep
 Ce repo contient la premiére séance du TP mini_projet Télecran (encoder indépendant)
-Auteurs: Ranim ben maatoug & Amal Turki
+### Auteurs: Ranim ben maatoug & Amal Turki
 ### Architecture de l'encodeur
 <img width="1536" height="2048" alt="33a9665b-c6dc-473c-bdca-d3caee67f2da" src="https://github.com/user-attachments/assets/1268e20c-fac1-4ed0-8142-0ed7e6a7a62a" />
 
@@ -206,6 +206,17 @@ end architecture sim;
 
 **Resultat de la simulation sur ModelSim**
 <img width="1913" height="1136" alt="e66788d7-7877-47f4-bc35-525f744eaee2 (1)" src="https://github.com/user-attachments/assets/2460186c-a3a2-4d56-adf2-782b4a37add6" />
+
+### Test sur la carte pour 100ms
+
+https://github.com/user-attachments/assets/9f92a59b-7159-417c-b331-a6a8e0e8e051
+
+Au début, on clique sur Key0 ce qui fait que tous les LEDS sont éteints puis on fait tourner la molette gauche  d'un cran dans le sens horaire ce qui fait allumer le premier LED puis un cran de plus dans le même sens ce qui allume un LED de plus (allant des LEDS ayant les poids les plus faibles au plus forts)
+Quand on change de sens de rotation de la molette, les combinaisons reviennent en arrière : la valeur redescend.
+
+### Remarque
+- **Réactivité et période d'échantillonnage** : avec une période de 100 ms, l'encodeur n'est lu que 10 fois par seconde. En tournant lentement, chaque cran est bien compté, mais dès qu'on tourne plus vite, des pas sont perdus : plusieurs changements de A et B se produisent entre deux lectures et ne sont pas vus. Si A et B changent tous les deux entre deux lectures, le circuit voit deux fronts en même temps et ne sait plus lequel est arrivé en premier, ce qui peut même faire compter dans le mauvais sens. En réduisant la période (par exemple à `G_SAMPLE_US => 1_000`, soit 1 ms), l'encodeur devient nettement plus réactif : les rotations rapides sont suivies correctement.
+
 
 
 
